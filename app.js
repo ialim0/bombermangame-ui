@@ -8,21 +8,30 @@ router.addRoute("/", () => {
   const container = DOM.getByClass("game-container")[0];
   const input = DOM.createElement("input", { placeholder: "Enter your name", type: "text", class: "player-name" });
   const button = DOM.createElement("button", {}, "Start Game");
-  button.addEventListener('click', startGame);
+  button.addEventListener('click', () => startGame(button));
   DOM.setHTML(".game-container", "");
   container.appendChild(input);
   container.appendChild(button);
 });
 
-function startGame() {
+function startGame(button) {
   const playerName = DOM.getValue(".player-name");
   if (playerName) {
-    const countdown = DOM.createElement("div", {}, "Game starts in 10 seconds...");
+    button.disabled = true; // Disable button to prevent multiple clicks
+    let counter = 10;
+    const countdown = DOM.createElement("div", {}, `Game starts in ${counter} seconds...`);
     DOM.setHTML(".game-container", "");
     DOM.append(".game-container", countdown);
-    setTimeout(() => {
-      initializeGame(playerName);
-    }, 10000);
+    const interval = setInterval(() => {
+      counter--;
+      countdown.textContent = `Game starts in ${counter} seconds...`;
+      if (counter === 0) {
+        clearInterval(interval);
+        initializeGame(playerName);
+      }
+    }, 1000);
+  } else {
+    alert("Please enter your name to start the game.");
   }
 }
 
