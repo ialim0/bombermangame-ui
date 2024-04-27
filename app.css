@@ -26,3 +26,33 @@ input, button {
 .hidden {
   display: none;
 }
+
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(15, 40px);
+  grid-template-rows: repeat(11, 40px);
+}
+
+.tile {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+.obstacle {
+  background-color: gray;
+}
+
+.player {
+  background-color: blue;
+}
+
+.bomb {
+  background-color: black;
+}
+
+.explosion {
+  background-color: red;
+}
